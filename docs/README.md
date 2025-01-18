@@ -1,3 +1,7 @@
+**Browser Core Documentation v0.0.2**
+
+***
+
 # Stone.js: Browser Core
 
 [![npm](https://img.shields.io/npm/l/@stone-js/browser-core)](https://opensource.org/licenses/Apache-2.0)
@@ -13,7 +17,6 @@ Stone.js Browser Core features with typings.
 ---
 
 Get started with the [documentation](https://stonejs.com/docs/browser).
-
 
 ## Contributing
 
