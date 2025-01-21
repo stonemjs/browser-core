@@ -6,6 +6,7 @@ import { IncomingBrowserEvent, IncomingBrowserEventOptions } from '../../src/eve
 const mockOptions: IncomingBrowserEventOptions = {
   locale: 'en',
   protocol: 'http',
+  source: {} as any,
   metadata: { username: 'Jonh' },
   queryString: 'param1=value1&param2=value2',
   url: new URL('http://localhost/test#title'),
@@ -44,6 +45,7 @@ describe('IncomingBrowserEvent', () => {
     expect(event.scheme).toBe('http')
     expect(event.segments).toEqual(['', 'test'])
     expect(event.isSecure).toBe(false)
+    expect(event.isMethod('POST')).toBe(false)
     expect(event.uri).toBe('http://localhost/test#title')
     expect(event.getRouteResolver()()).toBeUndefined()
     expect(event.getUserResolver()()).toBeUndefined()

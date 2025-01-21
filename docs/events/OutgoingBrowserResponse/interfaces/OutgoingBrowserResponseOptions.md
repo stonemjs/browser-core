@@ -6,7 +6,7 @@
 
 # Interface: OutgoingBrowserResponseOptions
 
-Defined in: events/OutgoingBrowserResponse.ts:6
+Defined in: [events/OutgoingBrowserResponse.ts:6](https://github.com/stonemjs/browser-core/blob/2c2c45da7146109ea5ae39ff81ac0b60630dfeee/src/events/OutgoingBrowserResponse.ts#L6)
 
 Options for creating an Outgoing Browser Response.
 

@@ -45,7 +45,7 @@ export class IncomingBrowserEvent extends IncomingEvent {
    * @returns A new instance of IncomingBrowserEvent.
    */
   static create (options: IncomingBrowserEventOptions): IncomingBrowserEvent {
-    return new this(options)
+    return new IncomingBrowserEvent(options)
   }
 
   /**
@@ -56,10 +56,10 @@ export class IncomingBrowserEvent extends IncomingEvent {
    */
   protected constructor ({
     url,
+    source,
     locale = 'en',
     metadata = {},
     protocol = 'http',
-    source = undefined,
     cookies = undefined,
     queryString = undefined
   }: IncomingBrowserEventOptions) {
@@ -334,6 +334,16 @@ export class IncomingBrowserEvent extends IncomingEvent {
    */
   getParam<TReturn = unknown>(name: string, fallback?: TReturn): TReturn | undefined {
     return this.getRoute()?.getParam?.(name, fallback)
+  }
+
+  /**
+   * Check if the current event method matches the given method.
+   *
+   * @param method - The method to check.
+   * @returns True if the event method matches, otherwise false.
+   */
+  isMethod (method: string): boolean {
+    return this.method.toUpperCase() === method.toUpperCase()
   }
 
   /**

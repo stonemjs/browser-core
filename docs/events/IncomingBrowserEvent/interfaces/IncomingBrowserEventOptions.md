@@ -6,7 +6,7 @@
 
 # Interface: IncomingBrowserEventOptions
 
-Defined in: events/IncomingBrowserEvent.ts:10
+Defined in: [events/IncomingBrowserEvent.ts:10](https://github.com/stonemjs/browser-core/blob/2c2c45da7146109ea5ae39ff81ac0b60630dfeee/src/events/IncomingBrowserEvent.ts#L10)
 
 IncomingBrowserEventOptions interface.
 
@@ -24,7 +24,7 @@ IncomingBrowserEventOptions interface.
 
 > `optional` **cookies**: [`CookieCollection`](../../../cookies/CookieCollection/classes/CookieCollection.md)
 
-Defined in: events/IncomingBrowserEvent.ts:14
+Defined in: [events/IncomingBrowserEvent.ts:14](https://github.com/stonemjs/browser-core/blob/2c2c45da7146109ea5ae39ff81ac0b60630dfeee/src/events/IncomingBrowserEvent.ts#L14)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: events/IncomingBrowserEvent.ts:14
 
 > `optional` **protocol**: `string`
 
-Defined in: events/IncomingBrowserEvent.ts:12
+Defined in: [events/IncomingBrowserEvent.ts:12](https://github.com/stonemjs/browser-core/blob/2c2c45da7146109ea5ae39ff81ac0b60630dfeee/src/events/IncomingBrowserEvent.ts#L12)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: events/IncomingBrowserEvent.ts:12
 
 > `optional` **queryString**: `string`
 
-Defined in: events/IncomingBrowserEvent.ts:13
+Defined in: [events/IncomingBrowserEvent.ts:13](https://github.com/stonemjs/browser-core/blob/2c2c45da7146109ea5ae39ff81ac0b60630dfeee/src/events/IncomingBrowserEvent.ts#L13)
 
 ***
 
@@ -48,4 +48,4 @@ Defined in: events/IncomingBrowserEvent.ts:13
 
 > **url**: `URL`
 
-Defined in: events/IncomingBrowserEvent.ts:11
+Defined in: [events/IncomingBrowserEvent.ts:11](https://github.com/stonemjs/browser-core/blob/2c2c45da7146109ea5ae39ff81ac0b60630dfeee/src/events/IncomingBrowserEvent.ts#L11)

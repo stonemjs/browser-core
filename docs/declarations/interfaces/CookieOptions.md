@@ -6,7 +6,7 @@
 
 # Interface: CookieOptions
 
-Defined in: declarations.ts:26
+Defined in: [declarations.ts:26](https://github.com/stonemjs/browser-core/blob/2c2c45da7146109ea5ae39ff81ac0b60630dfeee/src/declarations.ts#L26)
 
 Options for configuring a cookie.
 
@@ -16,7 +16,7 @@ Options for configuring a cookie.
 
 > `optional` **domain**: `string`
 
-Defined in: declarations.ts:29
+Defined in: [declarations.ts:29](https://github.com/stonemjs/browser-core/blob/2c2c45da7146109ea5ae39ff81ac0b60630dfeee/src/declarations.ts#L29)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: declarations.ts:29
 
 > `optional` **expires**: `Date`
 
-Defined in: declarations.ts:28
+Defined in: [declarations.ts:28](https://github.com/stonemjs/browser-core/blob/2c2c45da7146109ea5ae39ff81ac0b60630dfeee/src/declarations.ts#L28)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: declarations.ts:28
 
 > `optional` **httpOnly**: `boolean`
 
-Defined in: declarations.ts:32
+Defined in: [declarations.ts:32](https://github.com/stonemjs/browser-core/blob/2c2c45da7146109ea5ae39ff81ac0b60630dfeee/src/declarations.ts#L32)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: declarations.ts:32
 
 > `optional` **maxAge**: `number`
 
-Defined in: declarations.ts:30
+Defined in: [declarations.ts:30](https://github.com/stonemjs/browser-core/blob/2c2c45da7146109ea5ae39ff81ac0b60630dfeee/src/declarations.ts#L30)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: declarations.ts:30
 
 > `optional` **path**: `string`
 
-Defined in: declarations.ts:27
+Defined in: [declarations.ts:27](https://github.com/stonemjs/browser-core/blob/2c2c45da7146109ea5ae39ff81ac0b60630dfeee/src/declarations.ts#L27)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: declarations.ts:27
 
 > `optional` **sameSite**: [`CookieSameSite`](../enumerations/CookieSameSite.md)
 
-Defined in: declarations.ts:33
+Defined in: [declarations.ts:33](https://github.com/stonemjs/browser-core/blob/2c2c45da7146109ea5ae39ff81ac0b60630dfeee/src/declarations.ts#L33)
 
 ***
 
@@ -64,4 +64,4 @@ Defined in: declarations.ts:33
 
 > `optional` **secure**: `boolean`
 
-Defined in: declarations.ts:31
+Defined in: [declarations.ts:31](https://github.com/stonemjs/browser-core/blob/2c2c45da7146109ea5ae39ff81ac0b60630dfeee/src/declarations.ts#L31)
