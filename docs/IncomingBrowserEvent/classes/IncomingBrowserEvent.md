@@ -54,6 +54,38 @@ The cookies included in the request.
 
 ***
 
+### locale
+
+```ts
+readonly locale: string;
+```
+
+The locale of the event.
+
+#### Inherited from
+
+```ts
+IncomingEvent.locale
+```
+
+***
+
+### metadata
+
+```ts
+readonly metadata: Record<string, unknown>;
+```
+
+The metadata associated with the event.
+
+#### Inherited from
+
+```ts
+IncomingEvent.metadata
+```
+
+***
+
 ### method
 
 ```ts
@@ -103,6 +135,54 @@ protected optional routeResolver?: () => IRoute;
 #### Returns
 
 [`IRoute`](../../declarations/interfaces/IRoute.md)
+
+***
+
+### source
+
+```ts
+readonly source: IncomingEventSource;
+```
+
+The source of the event.
+
+#### Inherited from
+
+```ts
+IncomingEvent.source
+```
+
+***
+
+### timeStamp
+
+```ts
+readonly timeStamp: number;
+```
+
+The timestamp of the event creation.
+
+#### Inherited from
+
+```ts
+IncomingEvent.timeStamp
+```
+
+***
+
+### type
+
+```ts
+readonly type: string;
+```
+
+The type of the event.
+
+#### Inherited from
+
+```ts
+IncomingEvent.type
+```
 
 ***
 
@@ -264,6 +344,30 @@ The pathname of the URL.
 
 ***
 
+### platform
+
+#### Get Signature
+
+```ts
+get platform(): string | symbol;
+```
+
+Get the platform of the event source.
+
+##### Returns
+
+`string` \| `symbol`
+
+The platform of the event source.
+
+#### Inherited from
+
+```ts
+IncomingEvent.platform
+```
+
+***
+
 ### scheme
 
 #### Get Signature
@@ -324,9 +428,42 @@ get userAgent(): string | undefined;
 
 `string` \| `undefined`
 
-The user agent of the request.
+The user agent, or undefined outside a browser (SSR/tests/workers).
 
 ## Methods
+
+### clone()
+
+```ts
+clone<T>(): T;
+```
+
+Return a cloned instance.
+
+The `metadata` container is deep-copied (plain objects and arrays are recreated,
+special values kept by reference) so that mutating the clone's metadata — e.g. via
+middleware — never leaks back into the original event. This is what makes the
+Kernel's `originalEvent` snapshot a faithful pre-middleware copy.
+
+#### Type Parameters
+
+##### T
+
+`T` *extends* `IncomingBrowserEvent`
+
+#### Returns
+
+`T`
+
+A cloned instance of the current class.
+
+#### Inherited from
+
+```ts
+IncomingEvent.clone
+```
+
+***
 
 ### fingerprint()
 
@@ -537,6 +674,84 @@ The cookie value or the fallback.
 
 ***
 
+### getMetadataValue()
+
+#### Call Signature
+
+```ts
+getMetadataValue<TReturn>(key): TReturn | undefined;
+```
+
+Get data from metadata.
+
+##### Type Parameters
+
+###### TReturn
+
+`TReturn` = `unknown`
+
+##### Parameters
+
+###### key
+
+`string`
+
+The key to retrieve from metadata.
+
+##### Returns
+
+`TReturn` \| `undefined`
+
+The value associated with the key or the fallback.
+
+##### Inherited from
+
+```ts
+IncomingEvent.getMetadataValue
+```
+
+#### Call Signature
+
+```ts
+getMetadataValue<TReturn>(key, fallback): TReturn;
+```
+
+Get data from metadata.
+
+##### Type Parameters
+
+###### TReturn
+
+`TReturn` = `unknown`
+
+##### Parameters
+
+###### key
+
+`string`
+
+The key to retrieve from metadata.
+
+###### fallback
+
+`TReturn`
+
+The fallback value if the key is not found.
+
+##### Returns
+
+`TReturn`
+
+The value associated with the key or the fallback.
+
+##### Inherited from
+
+```ts
+IncomingEvent.getMetadataValue
+```
+
+***
+
 ### getParam()
 
 Retrieve a parameter from the route if it exists.
@@ -741,6 +956,42 @@ True if the cookie exists, otherwise false.
 
 ***
 
+### is()
+
+```ts
+is(key, value): boolean;
+```
+
+Check if the given value is equal to the specified value.
+
+#### Parameters
+
+##### key
+
+`string`
+
+The key to check.
+
+##### value
+
+`unknown`
+
+The value to compare against.
+
+#### Returns
+
+`boolean`
+
+True if the key's value is equal to the specified value, false otherwise.
+
+#### Inherited from
+
+```ts
+IncomingEvent.is
+```
+
+***
+
 ### isMethod()
 
 ```ts
@@ -762,6 +1013,72 @@ The method to check.
 `boolean`
 
 True if the event method matches, otherwise false.
+
+***
+
+### isPlatform()
+
+```ts
+isPlatform(platform): boolean;
+```
+
+Check if the event source is from a platform.
+
+#### Parameters
+
+##### platform
+
+`string` \| `symbol`
+
+The platform to check.
+
+#### Returns
+
+`boolean`
+
+True if the event source is from the platform, false otherwise.
+
+#### Inherited from
+
+```ts
+IncomingEvent.isPlatform
+```
+
+***
+
+### setMetadataValue()
+
+```ts
+setMetadataValue(key, value?): this;
+```
+
+Add data to metadata.
+
+#### Parameters
+
+##### key
+
+`string` \| `Record`\<`string`, `unknown`\>
+
+The key or object to add to metadata.
+
+##### value?
+
+`unknown`
+
+The value to associate with the key.
+
+#### Returns
+
+`this`
+
+This Event instance.
+
+#### Inherited from
+
+```ts
+IncomingEvent.setMetadataValue
+```
 
 ***
 
@@ -869,4 +1186,22 @@ A new instance of IncomingBrowserEvent.
 
 ```ts
 IncomingEvent.create
+```
+
+## Events
+
+### INCOMING\_EVENT
+
+```ts
+static INCOMING_EVENT: string;
+```
+
+INCOMING_EVENT Event name, fires on platform message.
+
+ IncomingEvent#INCOMING_EVENT
+
+#### Inherited from
+
+```ts
+IncomingEvent.INCOMING_EVENT
 ```

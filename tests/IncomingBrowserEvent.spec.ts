@@ -111,4 +111,23 @@ describe('IncomingBrowserEvent', () => {
   it('should throw an error if an invalid URL is provided', () => {
     expect(() => IncomingBrowserEvent.create({ ...mockOptions, url: 'invalid-url' as unknown as URL })).toThrow(BrowserError)
   })
+
+  it('derives the query from url.search when no queryString is provided', () => {
+    const event = IncomingBrowserEvent.create({ ...mockOptions, url: new URL('http://localhost/p?a=1&b=2'), queryString: undefined })
+    expect(event.query.get('a')).toBe('1')
+    expect(event.query.get('b')).toBe('2')
+  })
+
+  it('reads userAgent from window, undefined when window is absent', () => {
+    vi.stubGlobal('window', { navigator: { userAgent: 'StoneAgent/1.0' } })
+    expect(IncomingBrowserEvent.create({ ...mockOptions }).userAgent).toBe('StoneAgent/1.0')
+
+    vi.stubGlobal('window', undefined) // SSR/worker: no window
+    expect(IncomingBrowserEvent.create({ ...mockOptions }).userAgent).toBeUndefined()
+
+    vi.stubGlobal('window', {}) // window without navigator
+    expect(IncomingBrowserEvent.create({ ...mockOptions }).userAgent).toBeUndefined()
+
+    vi.unstubAllGlobals()
+  })
 })

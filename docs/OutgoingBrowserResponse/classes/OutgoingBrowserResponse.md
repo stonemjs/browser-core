@@ -39,13 +39,474 @@ OutgoingResponse.constructor
 
 ## Properties
 
+### \_content
+
+```ts
+protected _content: unknown;
+```
+
+The content of the response.
+
+#### Inherited from
+
+```ts
+OutgoingResponse._content
+```
+
+***
+
+### \_statusCode?
+
+```ts
+protected optional _statusCode?: number;
+```
+
+The status code of the response.
+
+#### Inherited from
+
+```ts
+OutgoingResponse._statusCode
+```
+
+***
+
+### \_statusMessage?
+
+```ts
+protected optional _statusMessage?: string;
+```
+
+The status message of the response.
+
+#### Inherited from
+
+```ts
+OutgoingResponse._statusMessage
+```
+
+***
+
+### metadata
+
+```ts
+readonly metadata: Record<string, unknown>;
+```
+
+The metadata associated with the event.
+
+#### Inherited from
+
+```ts
+OutgoingResponse.metadata
+```
+
+***
+
+### originalContent
+
+```ts
+readonly originalContent: unknown;
+```
+
+The original content of the response.
+
+#### Inherited from
+
+```ts
+OutgoingResponse.originalContent
+```
+
+***
+
+### prepared
+
+```ts
+protected prepared: boolean;
+```
+
+The prepared status of the response.
+
+#### Inherited from
+
+```ts
+OutgoingResponse.prepared
+```
+
+***
+
+### source?
+
+```ts
+readonly optional source?: object;
+```
+
+The source of the event.
+
+#### Inherited from
+
+```ts
+OutgoingResponse.source
+```
+
+***
+
+### timeStamp
+
+```ts
+readonly timeStamp: number;
+```
+
+The timestamp of the event creation.
+
+#### Inherited from
+
+```ts
+OutgoingResponse.timeStamp
+```
+
+***
+
+### type
+
+```ts
+readonly type: string;
+```
+
+The type of the event.
+
+#### Inherited from
+
+```ts
+OutgoingResponse.type
+```
+
+***
+
 ### OUTGOING\_BROWSER\_RESPONSE
 
 ```ts
 static OUTGOING_BROWSER_RESPONSE: string = 'stonejs@outgoing_browser_response';
 ```
 
+## Accessors
+
+### content
+
+#### Get Signature
+
+```ts
+get content(): unknown;
+```
+
+Gets the content of the outgoing response.
+
+##### Returns
+
+`unknown`
+
+The content of the outgoing response.
+
+#### Inherited from
+
+```ts
+OutgoingResponse.content
+```
+
+***
+
+### isPrepared
+
+#### Get Signature
+
+```ts
+get isPrepared(): boolean;
+```
+
+Gets the prepared status of the outgoing response.
+
+##### Returns
+
+`boolean`
+
+The prepared status of the response.
+
+#### Inherited from
+
+```ts
+OutgoingResponse.isPrepared
+```
+
+***
+
+### statusCode
+
+#### Get Signature
+
+```ts
+get statusCode(): number | undefined;
+```
+
+Gets the status code of the outgoing response.
+
+##### Returns
+
+`number` \| `undefined`
+
+The status code of the response, or undefined if not set.
+
+#### Inherited from
+
+[`RedirectBrowserResponse`](../../RedirectBrowserResponse/classes/RedirectBrowserResponse.md).[`statusCode`](../../RedirectBrowserResponse/classes/RedirectBrowserResponse.md#statuscode)
+
+***
+
+### statusMessage
+
+#### Get Signature
+
+```ts
+get statusMessage(): string | undefined;
+```
+
+Gets the status message of the outgoing response.
+
+##### Returns
+
+`string` \| `undefined`
+
+The status message of the response, or undefined if not set.
+
+#### Inherited from
+
+[`RedirectBrowserResponse`](../../RedirectBrowserResponse/classes/RedirectBrowserResponse.md).[`statusMessage`](../../RedirectBrowserResponse/classes/RedirectBrowserResponse.md#statusmessage)
+
 ## Methods
+
+### clone()
+
+```ts
+clone<T>(): T;
+```
+
+Return a cloned instance.
+
+The `metadata` container is deep-copied (plain objects and arrays are recreated,
+special values kept by reference) so that mutating the clone's metadata — e.g. via
+middleware — never leaks back into the original event. This is what makes the
+Kernel's `originalEvent` snapshot a faithful pre-middleware copy.
+
+#### Type Parameters
+
+##### T
+
+`T` *extends* `OutgoingBrowserResponse`
+
+#### Returns
+
+`T`
+
+A cloned instance of the current class.
+
+#### Inherited from
+
+```ts
+OutgoingResponse.clone
+```
+
+***
+
+### get()
+
+#### Call Signature
+
+```ts
+get<TReturn>(key): TReturn | undefined;
+```
+
+Get data from metadata.
+
+##### Type Parameters
+
+###### TReturn
+
+`TReturn` = `unknown`
+
+##### Parameters
+
+###### key
+
+`string`
+
+The key to retrieve from metadata.
+
+##### Returns
+
+`TReturn` \| `undefined`
+
+The value associated with the key or the fallback.
+
+##### Inherited from
+
+```ts
+OutgoingResponse.get
+```
+
+#### Call Signature
+
+```ts
+get<TReturn>(key, fallback): TReturn;
+```
+
+Get data from metadata.
+
+##### Type Parameters
+
+###### TReturn
+
+`TReturn` = `unknown`
+
+##### Parameters
+
+###### key
+
+`string`
+
+The key to retrieve from metadata.
+
+###### fallback
+
+`TReturn`
+
+The fallback value if the key is not found.
+
+##### Returns
+
+`TReturn`
+
+The value associated with the key or the fallback.
+
+##### Inherited from
+
+```ts
+OutgoingResponse.get
+```
+
+***
+
+### getMetadataValue()
+
+#### Call Signature
+
+```ts
+getMetadataValue<TReturn>(key): TReturn | undefined;
+```
+
+Get data from metadata.
+
+##### Type Parameters
+
+###### TReturn
+
+`TReturn` = `unknown`
+
+##### Parameters
+
+###### key
+
+`string`
+
+The key to retrieve from metadata.
+
+##### Returns
+
+`TReturn` \| `undefined`
+
+The value associated with the key or the fallback.
+
+##### Inherited from
+
+```ts
+OutgoingResponse.getMetadataValue
+```
+
+#### Call Signature
+
+```ts
+getMetadataValue<TReturn>(key, fallback): TReturn;
+```
+
+Get data from metadata.
+
+##### Type Parameters
+
+###### TReturn
+
+`TReturn` = `unknown`
+
+##### Parameters
+
+###### key
+
+`string`
+
+The key to retrieve from metadata.
+
+###### fallback
+
+`TReturn`
+
+The fallback value if the key is not found.
+
+##### Returns
+
+`TReturn`
+
+The value associated with the key or the fallback.
+
+##### Inherited from
+
+```ts
+OutgoingResponse.getMetadataValue
+```
+
+***
+
+### is()
+
+```ts
+is(key, value): boolean;
+```
+
+Check if the given value is equal to the specified value.
+
+#### Parameters
+
+##### key
+
+`string`
+
+The key to check.
+
+##### value
+
+`unknown`
+
+The value to compare against.
+
+#### Returns
+
+`boolean`
+
+True if the key's value is equal to the specified value, false otherwise.
+
+#### Inherited from
+
+```ts
+OutgoingResponse.is
+```
+
+***
 
 ### is1xx()
 
@@ -269,6 +730,174 @@ True if the status code is 401, otherwise false.
 
 ***
 
+### prepare()
+
+```ts
+prepare(_event, _container?): Promiseable<OutgoingBrowserResponse>;
+```
+
+Prepare response before sending it.
+
+#### Parameters
+
+##### \_event
+
+`IncomingEvent`
+
+The incoming event associated with this response.
+
+##### \_container?
+
+`Container`
+
+The container.
+
+#### Returns
+
+`Promiseable`\<`OutgoingBrowserResponse`\>
+
+This OutgoingResponse instance.
+
+#### Inherited from
+
+```ts
+OutgoingResponse.prepare
+```
+
+***
+
+### setContent()
+
+```ts
+setContent(content): this;
+```
+
+Set the content of the response.
+
+#### Parameters
+
+##### content
+
+`unknown`
+
+The content to set.
+
+#### Returns
+
+`this`
+
+This OutgoingResponse instance.
+
+#### Inherited from
+
+```ts
+OutgoingResponse.setContent
+```
+
+***
+
+### setMetadataValue()
+
+```ts
+setMetadataValue(key, value?): this;
+```
+
+Add data to metadata.
+
+#### Parameters
+
+##### key
+
+`string` \| `Record`\<`string`, `unknown`\>
+
+The key or object to add to metadata.
+
+##### value?
+
+`unknown`
+
+The value to associate with the key.
+
+#### Returns
+
+`this`
+
+This Event instance.
+
+#### Inherited from
+
+```ts
+OutgoingResponse.setMetadataValue
+```
+
+***
+
+### setPrepared()
+
+```ts
+setPrepared(prepared): this;
+```
+
+Set the prepared status of the response.
+
+#### Parameters
+
+##### prepared
+
+`boolean`
+
+The prepared status to set.
+
+#### Returns
+
+`this`
+
+This OutgoingResponse instance.
+
+#### Inherited from
+
+```ts
+OutgoingResponse.setPrepared
+```
+
+***
+
+### setStatus()
+
+```ts
+setStatus(code, text?): this;
+```
+
+Set the status code of the response.
+
+#### Parameters
+
+##### code
+
+`number`
+
+The status code.
+
+##### text?
+
+`string`
+
+Optional status message.
+
+#### Returns
+
+`this`
+
+This OutgoingResponse instance.
+
+#### Inherited from
+
+```ts
+OutgoingResponse.setStatus
+```
+
+***
+
 ### create()
 
 ```ts
@@ -295,4 +924,22 @@ A new instance of OutgoingBrowserResponse.
 
 ```ts
 OutgoingResponse.create
+```
+
+## Events
+
+### OUTGOING\_RESPONSE
+
+```ts
+static OUTGOING_RESPONSE: string;
+```
+
+OUTGOING_RESPONSE Event name, fires on response to the incoming event.
+
+ OutgoingResponse#OUTGOING_RESPONSE
+
+#### Inherited from
+
+```ts
+OutgoingResponse.OUTGOING_RESPONSE
 ```

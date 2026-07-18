@@ -72,9 +72,12 @@ export class IncomingBrowserEvent extends IncomingEvent {
     this.url = url
     this.method = 'GET'
     this.protocol = protocol
-    this.queryString = queryString
+    // Prefer the explicit queryString, but fall back to the URL's own query so `event.query` is
+    // never empty when a caller passes a URL carrying `?a=1` without a separate queryString
+    // (previously `query` and `path` disagreed).
+    this.queryString = queryString ?? url.search
     this.cookies = cookies ?? CookieCollection.create()
-    this.query = new URLSearchParams(this.queryString ?? '')
+    this.query = new URLSearchParams(this.queryString)
   }
 
   /** @returns The decoded pathname of the URL. */
@@ -136,9 +139,11 @@ export class IncomingBrowserEvent extends IncomingEvent {
     return this.protocol === 'https'
   }
 
-  /** @returns The user agent of the request. */
+  /** @returns The user agent, or undefined outside a browser (SSR/tests/workers). */
   get userAgent (): string | undefined {
-    return window.navigator.userAgent
+    // Guard the global so the event object stays constructible/readable in any context (the
+    // Continuum promise): a bare `window.navigator` throws under SSR/Node.
+    return typeof window !== 'undefined' ? window.navigator?.userAgent : undefined
   }
 
   /**
@@ -357,7 +362,13 @@ export class IncomingBrowserEvent extends IncomingEvent {
    * @returns The generated fingerprint as a base64 string.
    */
   fingerprint (): string {
-    return btoa([this.method, this.pathname].join('|'))
+    // Include the full path (pathname + search) so distinct navigations don't collide, and
+    // base64-encode UTF-8 bytes so non-latin1 paths don't throw (bare `btoa` only accepts latin1).
+    const raw = [this.method, this.path].join('|')
+    /* v8 ignore next 3 */ // The browser btoa branch can't run under the Node test runtime (Buffer always defined).
+    return typeof Buffer !== 'undefined'
+      ? Buffer.from(raw, 'utf-8').toString('base64')
+      : btoa(String.fromCharCode(...new TextEncoder().encode(raw)))
   }
 
   /**

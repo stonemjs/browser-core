@@ -27,7 +27,27 @@ export class Cookie {
   protected constructor (name: string, value: unknown, options: CookieOptions = {}) {
     this.name = name
     this.options = options
-    this.value = !this.isValueSerialized(value) ? value : JSON.parse(value.replace('$$j$$:', ''))
+    this.value = this.deserialize(value)
+  }
+
+  /**
+   * Deserialize a stored cookie value, tolerating malformed JSON.
+   *
+   * A `$$j$$:` value that is not valid JSON (posted by a subdomain, an old app version, or a
+   * hand-crafted cookie) MUST NOT throw: `document.cookie` is shared and unprotected, so an
+   * unguarded `JSON.parse` here crashed the construction of every IncomingBrowserEvent — killing
+   * the whole SPA on every navigation. On failure the raw value is kept as-is.
+   *
+   * @param value - The raw cookie value.
+   * @returns The deserialized value (or the raw value if it is not/!valid serialized JSON).
+   */
+  private deserialize (value: unknown): unknown {
+    if (!this.isValueSerialized(value)) { return value }
+    try {
+      return JSON.parse(value.replace('$$j$$:', ''))
+    } catch {
+      return value
+    }
   }
 
   /**

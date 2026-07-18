@@ -15,7 +15,9 @@ export interface RedirectBrowserResponseOptions extends OutgoingBrowserResponseO
  * @author Mr. Stone <evensstone@gmail.com>
  */
 export class RedirectBrowserResponse extends OutgoingBrowserResponse {
-  static OUTGOING_BROWSER_RESPONSE = 'stonejs@redirect_browser_response'
+  // Own identity constant — do NOT shadow the parent's OUTGOING_BROWSER_RESPONSE with a different
+  // value (that made `Redirect….OUTGOING_BROWSER_RESPONSE` disagree with the parent's).
+  static readonly REDIRECT_BROWSER_RESPONSE = 'stonejs@redirect_browser_response'
   public readonly targetUrl?: string | URL
 
   /**
@@ -46,10 +48,43 @@ export class RedirectBrowserResponse extends OutgoingBrowserResponse {
    * @throws HttpError if the status code is not a redirect code.
    */
   constructor (options: RedirectBrowserResponseOptions) {
-    super(options)
+    // Default to 302 (a real redirect) rather than the parent's 200 — a redirect response with a
+    // 200 status is meaningless (the old `create({ url })` produced exactly that).
+    super({ statusCode: 302, ...options })
+
     if (isEmpty(options.url ?? options.content)) {
       throw new BrowserError('Cannot redirect to an empty URL.')
     }
-    this.targetUrl = options.url ?? (options.content as any)?.redirect ?? options.content
+
+    /* v8 ignore next */ // super() always sets a numeric statusCode; the ?? is a type guard only.
+    const code = this.statusCode ?? 302
+    if (code < 300 || code >= 400) {
+      throw new BrowserError(`This status code (${code}) is not a redirect code.`)
+    }
+
+    const target = options.url ?? (options.content as any)?.redirect ?? options.content
+    this.assertSafeTarget(target)
+    this.targetUrl = target
+  }
+
+  /**
+   * Reject dangerous redirect target schemes (`javascript:`, `data:`, `vbscript:`, …).
+   *
+   * The class does not navigate itself, but consumers assign `targetUrl` to `location.href`; an
+   * unvalidated `javascript:` target would be an XSS sink. Relative paths and http(s) are allowed.
+   *
+   * @param url - The redirect target.
+   * @throws BrowserError if the scheme is unsafe.
+   */
+  private assertSafeTarget (url: string | URL): void {
+    const value = String(url instanceof URL ? url.href : url).trim()
+
+    // Relative/same-document targets are always safe.
+    if (value.startsWith('/') || value.startsWith('.') || value.startsWith('#') || value.startsWith('?')) { return }
+
+    const scheme = /^([a-z][a-z0-9+.-]*):/i.exec(value)?.[1]?.toLowerCase()
+    if (scheme !== undefined && scheme !== 'http' && scheme !== 'https') {
+      throw new BrowserError(`Unsafe redirect target scheme "${scheme}:".`)
+    }
   }
 }

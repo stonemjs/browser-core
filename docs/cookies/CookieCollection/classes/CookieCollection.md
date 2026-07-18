@@ -328,7 +328,7 @@ Set secure flag for all cookies in the collection.
 
 ##### value?
 
-`boolean` = `false`
+`boolean` = `true`
 
 Whether the cookies are secure.
 

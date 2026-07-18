@@ -170,7 +170,8 @@ export class CookieCollection {
    *
    * @param value - Whether the cookies are secure.
    */
-  secure (value: boolean = false): this {
+  secure (value: boolean = true): this {
+    // Default to enabling Secure: `collection.secure()` should mark cookies secure, not clear it.
     this.cookies.forEach((v) => this.saveCookie(v.setSecure(value)))
     return this
   }
