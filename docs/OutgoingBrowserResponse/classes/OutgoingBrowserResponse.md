@@ -286,7 +286,7 @@ The status message of the response, or undefined if not set.
 ### clone()
 
 ```ts
-clone<T>(): T;
+clone(): this;
 ```
 
 Return a cloned instance.
@@ -296,15 +296,9 @@ special values kept by reference) so that mutating the clone's metadata — e.g.
 middleware — never leaks back into the original event. This is what makes the
 Kernel's `originalEvent` snapshot a faithful pre-middleware copy.
 
-#### Type Parameters
-
-##### T
-
-`T` *extends* `OutgoingBrowserResponse`
-
 #### Returns
 
-`T`
+`this`
 
 A cloned instance of the current class.
 
